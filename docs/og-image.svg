@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
-<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a0a0c"/><stop offset="100%" stop-color="#1a1a22"/></linearGradient></defs>
-<rect width="1200" height="630" fill="url(#g)"/>
-<text x="80" y="170" font-family="-apple-system,system-ui,sans-serif" font-size="32" font-weight="700" fill="#ffd84d" letter-spacing="4">APEX NATION</text>
-<text x="80" y="320" font-family="-apple-system,system-ui,sans-serif" font-size="100" font-weight="900" fill="#faf7ef" letter-spacing="-2">I Make</text>
-<text x="80" y="430" font-family="-apple-system,system-ui,sans-serif" font-size="100" font-weight="900" fill="#ffd84d" letter-spacing="-2">Leaders.</text>
-<text x="80" y="540" font-family="-apple-system,system-ui,sans-serif" font-size="22" fill="#faf7ef" opacity="0.7">Sam James · 20 · 70+ agents recruited · @theprincejamez</text>
-</svg>
