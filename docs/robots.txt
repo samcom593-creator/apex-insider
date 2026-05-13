@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://samcom593-creator.github.io/apex-insider/sitemap.xml
