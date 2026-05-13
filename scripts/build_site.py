@@ -329,8 +329,18 @@ def main():
     (DOCS / "og-image.svg").write_text(og_svg())
     (DOCS / "rss.xml").write_text(rss(posts))
     (DOCS / "sitemap.xml").write_text(sitemap(posts, corns))
-    (DOCS / "robots.txt").write_text(f"User-agent: *\nAllow: /\nSitemap: {BASE}/sitemap.xml\n")
+    (DOCS / "robots.txt").write_text(f"User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {BASE}/sitemap.xml\n")
     (DOCS / "CNAME").touch()
+    # Copy static/ (admin pages, anything verbatim) into docs/
+    STATIC = ROOT / "static"
+    if STATIC.exists():
+        import shutil
+        for src in STATIC.rglob("*"):
+            if src.is_file():
+                rel = src.relative_to(STATIC)
+                dst = DOCS / rel
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(src, dst)
     print(f"built {len(posts)} posts + {len(corns)} cornerstones")
 
 
