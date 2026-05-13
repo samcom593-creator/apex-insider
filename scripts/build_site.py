@@ -237,6 +237,113 @@ def leads():
     return page("Warm Recruit Leads — APEX Lead Marketplace", "Sam's team vets 200-400 applications/month. Buy overflow leads $50/each. Real recruits, not data brokers.", body, canonical=f"{BASE}/leads.html")
 
 
+STATES = [
+    ("texas", "Texas"), ("florida", "Florida"), ("california", "California"),
+    ("new-york", "New York"), ("georgia", "Georgia"), ("north-carolina", "North Carolina"),
+    ("ohio", "Ohio"), ("illinois", "Illinois"), ("michigan", "Michigan"),
+    ("pennsylvania", "Pennsylvania"),
+]
+
+
+def audit():
+    body = f'''<section class="hero"><div class="kicker">For agency owners + managers</div>
+<h1>Sam audits your <span class="accent">recruiting funnel</span> — $497.</h1>
+<p class="sub">90-minute deep-dive on your IG, your DM scripts, your application flow, your onboarding cadence, your CRM. You leave with a 1-page action plan you can ship tomorrow.</p>
+<div class="row"><a class="btn btn-gold" href="#book">Book the audit</a><a class="btn btn-ghost" href="{BASE}/platform.html">Or license the platform →</a></div></section>
+<div class="wrap">
+<h2 class="section">What you get</h2>
+<ul style="font-size:17px;line-height:1.7">
+<li><strong>Live screenshare</strong> — Sam looks at your IG, your DMs, your funnel, your numbers</li>
+<li><strong>The 1-page action plan</strong> — top 5 things to fix this week, ranked by $ impact</li>
+<li><strong>Voice memo recap</strong> — 10-min audio you can replay any time</li>
+<li><strong>30-day follow-up text</strong> — quick check-in to see what shipped</li>
+</ul>
+<div class="offer gold" id="book"><div class="price">$497 · one-time · 90 minutes</div>
+<h3>Book the audit</h3><p>Drop your agency name + IG handle + the one thing that's costing you sleep. I'll reply with calendar options within 24 hours.</p>
+<form class="signup" action="{SINK}" method="POST"><input type="hidden" name="_subject" value="APEX Audit booking"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="source" value="apex-insider-audit"><input type="text" name="agency" placeholder="Your agency" required><input type="text" name="ig_handle" placeholder="Your IG @handle" required><input type="text" name="pain_point" placeholder="What's costing you sleep" required><input type="email" name="email" placeholder="you@youragency.com" required><button type="submit">Request slots</button></form>
+<p style="font-size:13px;color:var(--muted);margin-top:14px">No payment now. Pay after we book. Limited to 4 audits per month.</p></div></div>'''
+    return page("APEX Audit — Sam looks at your funnel ($497)", "Sam James audits your recruiting funnel in 90 minutes. You leave with a 1-page action plan. $497, 4 slots/month.", body, canonical=f"{BASE}/audit.html")
+
+
+def mentor():
+    body = f'''<section class="hero"><div class="kicker">For 6-figure agency owners only</div>
+<h1>1-on-1 with Sam, <span class="accent">monthly</span>.</h1>
+<p class="sub">Weekly 60-min calls. Direct access in a private thread. We work the moves that move your number. Capped at 4 mentees.</p>
+<div class="row"><a class="btn btn-gold" href="#apply">Apply for a seat</a><a class="btn btn-ghost" href="{BASE}/audit.html">Or try the audit first →</a></div></section>
+<div class="wrap">
+<h2 class="section">What this is</h2>
+<p>Not a course. Not a group call. Me, on your team, every week. You bring the move you're stuck on. We work it. You ship it.</p>
+<h2 class="section">Who fits</h2>
+<ul style="font-size:17px;line-height:1.7">
+<li>You're running $30K+/mo personal income or $100K+/mo team production</li>
+<li>You have at least 5 contracted agents</li>
+<li>You're willing to commit to 12 months at $5K/mo</li>
+<li>You're not chasing the next shiny thing every week</li>
+</ul>
+<div class="offer gold" id="apply"><div class="price">$5,000/mo · 12 months · 4 seats total</div>
+<h3>Apply</h3><p>Tell me about your agency. If you fit, I book a free 30-min fit call. If we both want it, you start the next Monday.</p>
+<form class="signup" action="{SINK}" method="POST"><input type="hidden" name="_subject" value="APEX Mentor application"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="source" value="apex-insider-mentor"><input type="text" name="agency" placeholder="Your agency" required><input type="text" name="monthly" placeholder="Current personal monthly $$" required><input type="text" name="team_size" placeholder="Contracted agents on your team" required><input type="text" name="goal" placeholder="12-month goal" required><input type="email" name="email" placeholder="you@youragency.com" required><button type="submit">Apply</button></form>
+<p style="font-size:13px;color:var(--muted);margin-top:14px">Honest answers only. I'll know if you fudge the numbers.</p></div></div>'''
+    return page("APEX Mentor — 1-on-1 with Sam ($5K/mo)", "Weekly calls + private access. 4 seats. For 6-figure agency owners only.", body, canonical=f"{BASE}/mentor.html")
+
+
+def pdf():
+    body = f'''<section class="hero"><div class="kicker">Free download</div>
+<h1>10 lines that made me <span class="accent">$30K last month</span>.</h1>
+<p class="sub">The exact DM openers, qualification questions, and close lines I used to recruit 70+ agents and write personal commissions every week. 8 pages. No fluff.</p>
+<div class="row"><a class="btn btn-gold" href="#get">Get the PDF</a><a class="btn btn-ghost" href="{APPLY}">Or just apply to APEX →</a></div></section>
+<div class="wrap">
+<div class="offer gold" id="get"><div class="price">Free · Emailed in 60 seconds</div>
+<h3>Get the PDF</h3><p>Drop your email. PDF hits your inbox. After that, one email a week if I have something worth sending. Unsub any time.</p>
+<form class="signup" action="{SINK}" method="POST"><input type="hidden" name="_subject" value="APEX 10-Lines PDF"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false"><input type="hidden" name="source" value="apex-insider-pdf"><input type="email" name="email" placeholder="you@yourdomain.com" required><button type="submit">Send it</button></form>
+</div>
+<h2 class="section">What's inside</h2>
+<ul style="font-size:17px;line-height:1.7">
+<li><strong>Lines 1-3:</strong> The first IG DM after someone follows you (3 variants)</li>
+<li><strong>Lines 4-5:</strong> The qualification question that filters tire-kickers in 2 messages</li>
+<li><strong>Line 6:</strong> The text I send 24h after the call if they ghost</li>
+<li><strong>Line 7:</strong> The carrier-anchored close (works for FE + term + IUL)</li>
+<li><strong>Lines 8-9:</strong> The "first week win" template — day-7 message for a new agent</li>
+<li><strong>Line 10:</strong> The win-back I use for agents who go quiet at month 2</li>
+</ul></div>'''
+    return page("10 Lines That Made $30K — Sam James", "Free PDF: the DM, qualification, and close lines Sam used to recruit 70+ agents.", body, canonical=f"{BASE}/pdf.html")
+
+
+def state_page(slug, name):
+    body = f'''<section class="hero"><div class="kicker">How to start in {name}</div>
+<h1>Become a life insurance agent in <span class="accent">{name}</span>.</h1>
+<p class="sub">The 4-week path from zero to your first commission check in {name} — license, contracts, leads, and the parts no one tells you.</p>
+<div class="row"><a class="btn btn-gold" href="{APPLY}">Apply to APEX</a><a class="btn btn-ghost" href="{BASE}/how-to-become-a-life-insurance-agent.html">Full national guide →</a></div></section>
+<div class="wrap"><article>
+<h2>The {name} license in 30 days</h2>
+<p>The {name} Department of Insurance issues a Life & Health line that runs about 4-6 weeks from study to test to walking-around-with-your-license. Cost: typically $150-$250 all in (fingerprints + exam + license issuance). Anyone telling you you need to pay $5,000 to "join" their team is lying — you do not.</p>
+<h2>Why {name} is a good place to start</h2>
+<ul>
+<li><strong>Reciprocity:</strong> {name} reciprocates with most other states; adding states later is paperwork-only.</li>
+<li><strong>Carrier appetite:</strong> Most major carriers (Mutual of Omaha, AIG, Americo, AHL, Royal Neighbors) write in {name} aggressively.</li>
+<li><strong>Final-expense demand:</strong> Senior-market final-expense is strong in {name} — easiest entry-level product.</li>
+</ul>
+<h2>The 30-day path</h2>
+<ol>
+<li><strong>Week 1:</strong> Buy a study course. ExamFX, Kaplan, or A.D. Banker. 1-2 hours/day.</li>
+<li><strong>Week 2:</strong> Take the exam. Pass with 70-85%. Schedule your fingerprint appointment.</li>
+<li><strong>Week 3:</strong> Apply for the license. Most {name} agents get their number within 5-7 business days.</li>
+<li><strong>Week 4:</strong> Contract with carriers through your FMO. Make your first 20 dials. Close your first deal.</li>
+</ol>
+<h2>What NOT to do</h2>
+<ul>
+<li>Pay an FMO $200+ upfront before you've sold a single policy.</li>
+<li>Sign a captive contract that says you can't keep your book if you leave.</li>
+<li>Buy leads in your first 30 days. Get the license + your team first.</li>
+<li>Pick a state you don't live in as your first license. Pick {name}, then expand.</li>
+</ul>
+<h2>What APEX does for {name} agents</h2>
+<p>APEX is the FMO + team Sam runs. We pay 80%+ splits, train you free, give you carrier-vetted leads in {name}, and never charge upfront fees. Onboarding takes a week. If it's not a fit after 90 days, you keep your book and we part friends.</p>
+<p><a class="btn btn-gold" href="{APPLY}">Apply to APEX from {name} →</a></p>
+</article></div>'''
+    return page(f"Become a Life Insurance Agent in {name} — APEX", f"4-week path to your {name} life insurance license + first commission. APEX recruits agents free.", body, canonical=f"{BASE}/states/{slug}.html")
+
+
 def og_svg():
     return '''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
@@ -303,8 +410,10 @@ def rss(posts):
 def sitemap(posts, corns):
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     urls = [f"<url><loc>{BASE}/</loc><lastmod>{today}</lastmod></url>"]
-    for u in ["platform.html", "course.html", "leads.html"]:
+    for u in ["platform.html", "course.html", "leads.html", "audit.html", "mentor.html", "pdf.html"]:
         urls.append(f"<url><loc>{BASE}/{u}</loc><lastmod>{today}</lastmod></url>")
+    for slug, _ in STATES:
+        urls.append(f"<url><loc>{BASE}/states/{slug}.html</loc><lastmod>{today}</lastmod></url>")
     for c in corns:
         urls.append(f"<url><loc>{BASE}/{c['slug']}.html</loc><lastmod>{today}</lastmod></url>")
     for p in posts:
@@ -326,6 +435,13 @@ def main():
     (DOCS / "platform.html").write_text(platform())
     (DOCS / "course.html").write_text(course())
     (DOCS / "leads.html").write_text(leads())
+    (DOCS / "audit.html").write_text(audit())
+    (DOCS / "mentor.html").write_text(mentor())
+    (DOCS / "pdf.html").write_text(pdf())
+    states_dir = DOCS / "states"
+    states_dir.mkdir(exist_ok=True)
+    for slug, name in STATES:
+        (states_dir / f"{slug}.html").write_text(state_page(slug, name))
     (DOCS / "og-image.svg").write_text(og_svg())
     (DOCS / "rss.xml").write_text(rss(posts))
     (DOCS / "sitemap.xml").write_text(sitemap(posts, corns))
