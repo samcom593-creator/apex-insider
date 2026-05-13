@@ -1,0 +1,75 @@
+name: Build + deploy apex-insider
+
+on:
+  schedule:
+    - cron: "30 15 * * *"  # daily 15:30 UTC, 30 min after daily-content-ideas fires
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/build.yml"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: apex-insider-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: apex-insider
+
+      - name: Pull content from claude-sync (read-only)
+        env:
+          GH_TOKEN: ${{ secrets.GH_SYNC_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::warning::GH_SYNC_TOKEN not set; building with empty content"
+            mkdir -p apex-insider/content-source
+            exit 0
+          fi
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/samcom593-creator/claude-sync.git" /tmp/claude-sync
+          mkdir -p apex-insider/content-source
+          if [ -d /tmp/claude-sync/memory/-Users-samjames/content-ideas ]; then
+            cp /tmp/claude-sync/memory/-Users-samjames/content-ideas/*.md apex-insider/content-source/ 2>/dev/null || true
+          fi
+          ls apex-insider/content-source/
+
+      - name: Build site
+        working-directory: apex-insider
+        run: python3 scripts/build_site.py
+
+      - name: Commit built site back to repo
+        working-directory: apex-insider
+        run: |
+          git config user.email "site-builder@samjames.local"
+          git config user.name "site-builder"
+          git add docs
+          [ -z "$(git diff --cached --name-only)" ] && exit 0
+          git commit -m "site: rebuild $(date -u +%Y-%m-%d)"
+          for i in 1 2 3 4 5; do git pull --rebase origin main || true; git push && exit 0; sleep $((i*3)); done
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: apex-insider/docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
